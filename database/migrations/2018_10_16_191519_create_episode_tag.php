@@ -15,11 +15,14 @@ class CreateEpisodeTag extends Migration
     {
         Schema::create('episode_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('part_id');
-            $table->foreign('part_id')->references('id')->on('parts');
-            $table->integer('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->integer('part_id')->unsigned();
+            $table->integer('tag_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('episode_tag', function (Blueprint $table) {
+            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('part_id')->references('id')->on('parts');
         });
     }
 

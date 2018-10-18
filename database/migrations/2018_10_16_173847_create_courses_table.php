@@ -15,13 +15,16 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 150);
-            $table->string('description', 150);
-            $table->string('requirement', 250);
+            $table->string('title');
+            $table->string('description');
+            $table->string('requirement');
             $table->boolean('done');
-            $table->integer('level_id');
-            $table->foreign('level_id')->references('id')->on('levels');
+            $table->integer('level_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('courses', function (Blueprint $table) {
+            $table->foreign('level_id')->references('id')->on('levels');
         });
     }
 

@@ -15,11 +15,14 @@ class CreateCourseCategory extends Migration
     {
         Schema::create('course_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id');
-            $table->foreign('course_id')->references('id')->on('courses');
-            $table->integer('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('course_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('course_category', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 

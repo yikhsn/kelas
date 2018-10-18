@@ -21,9 +21,12 @@ class CreatePartsTable extends Migration
             $table->text('content');
             $table->integer('next_id');
             $table->integer('previous_id');
-            $table->integer('course_id');
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->integer('course_id')->unsigned();
             $table->timestamps();            
+        });
+
+        Schema::table('parts', function (Blueprint $table) {
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 
